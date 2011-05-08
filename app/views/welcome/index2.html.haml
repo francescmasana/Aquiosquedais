@@ -1,0 +1,109 @@
+-content_for :dyn_js do
+	:plain
+		<script type="text/javascript">
+			$(function(){
+				// Slider
+				$('.slider').slider({
+					value: 5,
+					min: 0,
+					max: 10,
+					step: 1,
+					range: 'min',
+					stop: function ( event, ui ) {
+						UpdateTotalPoints($(this).attr('id').replace('slider', ''));
+					},
+					change: function ( event, ui ){
+						$('#' + $(this).attr('id') + '_value').val(ui.value);
+					}
+				});
+				// Buttons
+				$(function() {
+					$('#radio').buttonset();
+					$('#radio').click(function(){$('#sliders').show();});
+				});
+				UpdateTotalPoints();
+			});
+			function ShowConfirmationModal(){
+				$( "#dialog-confirm" ).dialog({
+					resizable: false,
+					height: 210,
+					width: 710,
+					modal: true,
+					title: 'Listo!',
+					buttons: {
+						'Sí, estoy impaciente!': function() {
+							$( this ).dialog( "close" );
+						},
+						'No, espera! Quiero revisar mis preferencias!': function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				});
+			}
+
+			function GiveMeTotalPoints(){
+				var TotalPoints = 0;
+				$('.slider').each(function(){
+					TotalPoints += parseInt($(this).slider('value'));
+					$('#' + $(this).attr('id') + '_value').val($(this).slider('value'));
+				});
+				return TotalPoints;
+			}
+
+			function UpdateTotalPoints(Id){
+				var RemainingPoints = 45 - GiveMeTotalPoints();
+				
+				var Counter = 0;
+				if(Id != undefined){
+					Counter = (Id + 1) % 9;
+				}
+				var IncrementalValue;
+				if(RemainingPoints < 0) IncrementalValue = 1;
+				if(RemainingPoints > 0) IncrementalValue = -1;
+				while(RemainingPoints != 0){
+					var CounterId = 'slider' + Counter;
+					var CurrentId = 'slider' + Id;
+					if(CurrentId != CounterId){
+						var NewValue = $('#' + CounterId).slider('value') - IncrementalValue;
+						if(NewValue >= 0 && NewValue <= 10){
+							$('#' + CounterId).slider('value', $('#' + CounterId).slider('value') - IncrementalValue);
+							RemainingPoints += IncrementalValue;
+						}
+					}
+					Counter = (Counter + 1) % 9;
+				}
+			}
+		</script>
+
+
+
+= form_tag('/submit', :method => "post") do
+	
+	<div id="radio">
+	-Region.all.each do |region|
+		=radio_button_tag("region_from_value", region.id)
+		=label_tag('region_from_value_' + region.id.to_s, region.name)
+	</div>
+	
+	<div style="width: 300px; display:none;" id="sliders">
+	Cultura: <div id="slider0" class="slider"></div><br/>
+	Residuos peligrosos: <div id="slider1" class="slider"></div><br/>
+	Economía: <div id="slider2" class="slider"></div><br/>
+	Educación: <div id="slider3" class="slider"></div><br/>
+	Medio ambiente: <div id="slider4" class="slider"></div><br/>
+	Sanidad: <div id="slider5" class="slider"></div><br/>
+	Immigración: <div id="slider6" class="slider"></div><br/>
+	Protección social: <div id="slider7" class="slider"></div><br/>
+	Desempleo: <div id="slider8" class="slider"></div><br/>		
+	= submit_tag("Enviar")
+	</div>
+
+	=hidden_field_tag('slider0_value')
+	=hidden_field_tag('slider1_value')
+	=hidden_field_tag('slider2_value')
+	=hidden_field_tag('slider3_value')
+	=hidden_field_tag('slider4_value')
+	=hidden_field_tag('slider5_value')
+	=hidden_field_tag('slider6_value')
+	=hidden_field_tag('slider7_value')
+	=hidden_field_tag('slider8_value')

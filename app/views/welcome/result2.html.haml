@@ -1,0 +1,296 @@
+﻿-content_for :dyn_js do
+	:plain
+		<script type="text/javascript">
+			$(document).ready(function() {
+			    jQuery('a.popup').live('click', function(){
+				    newwindow=window.open($(this).attr('href'),'','height=350,width=750');
+				    if (window.focus) {newwindow.focus()}
+				    return false;
+			    });
+			});
+		</script>
+		
+-if @submit.present?
+	-if @submit.region_from_id != @submit.region_result_id
+		%h1= 'Pues me voy a... ' + @submit.region_result.name
+		<table>
+		<tr>
+		<td>
+		%br
+		%h2= 'Mis preferencias:'
+		Cultura:
+		=@submit.culture
+		%br
+		Residuos peligrosos:
+		=@submit.dangerous_waste
+		%br
+		Economía:
+		=@submit.economy
+		%br
+		Educación:
+		=@submit.education
+		%br
+		Medio ambiente:
+		=@submit.environment
+		%br
+		Salud:
+		=@submit.health
+		%br
+		Immigración:
+		=@submit.immigration
+		%br
+		Protección social:
+		=@submit.social_protection
+		%br
+		Desempleo:
+		=@submit.unemployment
+		%br
+		</td>
+		<td>
+		%h2= 'Tu comunidad:'
+		=@submit.region_from.name
+		%br
+		Mis preferencias:
+		Cultura:
+		=(@submit.region_from.preculture / 10).to_i
+		%br
+		Residuos peligrosos:
+		=(@submit.region_from.predangerous_waste / 10).to_i
+		%br
+		Economía:
+		=(@submit.region_from.preeconomy / 10).to_i
+		%br
+		Educación:
+		=(@submit.region_from.preeducation / 10).to_i
+		%br
+		Medio ambiente:
+		=(@submit.region_from.preenvironment / 10).to_i
+		%br
+		Salud:
+		=(@submit.region_from.prehealth / 10).to_i
+		%br
+		Immigración:
+		=(@submit.region_from.preimmigration / 10).to_i
+		%br
+		Protección social:
+		=(@submit.region_from.presocial_protection / 10).to_i
+		%br
+		Desempleo:
+		=(@submit.region_from.preunemployment / 10).to_i
+		%br
+		</td>
+		<td>
+		%h2= 'Tu destino:'
+		=@submit.region_result.name
+		%br
+		Cultura:
+		=(@submit.region_result.preculture / 10).to_i
+		%br
+		Residuos peligrosos:
+		=(@submit.region_result.predangerous_waste / 10).to_i
+		%br
+		Economía:
+		=(@submit.region_result.preeconomy / 10).to_i
+		%br
+		Educación:
+		=(@submit.region_result.preeducation / 10).to_i
+		%br
+		Medio ambiente:
+		=(@submit.region_result.preenvironment / 10).to_i
+		%br
+		Salud:
+		=(@submit.region_result.prehealth / 10).to_i
+		%br
+		Immigración:
+		=(@submit.region_result.preimmigration / 10).to_i
+		%br
+		Protección social:
+		=(@submit.region_result.presocial_protection / 10).to_i
+		%br
+		Desempleo:
+		=(@submit.region_result.preunemployment / 10).to_i
+		%br
+		</td>
+		</tr>
+		<tr>
+		<td></td>
+		<td>
+		%h2= 'Valores'
+		Cultura:
+		=(@submit.region_from.culture.value / @submit.region_from.population * 100000).to_i
+		%br
+		Residuos peligrosos:
+		=@submit.region_from.dangerous_waste.value.to_int
+		%br
+		Economía:
+		=(@submit.region_from.economy.value / @submit.region_from.population * 1000000).to_int
+		%br
+		Educación:
+		=@submit.region_from.education.value.to_int
+		%br
+		Medio ambiente:
+		=(@submit.region_from.environment.value / @submit.region_from.population* 100000).to_int
+		%br
+		Salud:
+		=@submit.region_from.health.value.to_int
+		%br
+		Immigración:
+		=(@submit.region_from.immigration.value / @submit.region_from.population* 100000).to_int
+		%br
+		Protección social:
+		=(@submit.region_from.social_protection.value / @submit.region_from.population* 100000).to_int
+		%br
+		Desempleo:
+		=@submit.region_from.unemployment.value.to_s + '%'
+		</td>
+		</td>
+		<td>
+		%h2= 'Valores'
+		Cultura:
+		=(@submit.region_result.culture.value / @submit.region_result.population * 100000).to_i
+		%br
+		Residuos peligrosos:
+		=@submit.region_result.dangerous_waste.value.to_int
+		%br
+		Economía:
+		=(@submit.region_result.economy.value / @submit.region_result.population * 1000000).to_int
+		%br
+		Educación:
+		=@submit.region_result.education.value.to_int
+		%br
+		Medio ambiente:
+		=(@submit.region_result.environment.value / @submit.region_result.population* 100000).to_int
+		%br
+		Salud:
+		=@submit.region_result.health.value.to_int
+		%br
+		Immigración:
+		=(@submit.region_result.immigration.value / @submit.region_result.population* 100000).to_int
+		%br
+		Protección social:
+		=(@submit.region_result.social_protection.value / @submit.region_result.population* 100000).to_int
+		%br
+		Desempleo:
+		=@submit.region_result.unemployment.value.to_s + '%'
+		</td>
+		</tr>
+		</table>
+	- else
+		%h1= 'Pues va ser que al final me quedo!'
+		<table>
+		<tr>
+		<td>
+		%br
+		%h2= 'Mis preferencias:'
+		Cultura:
+		=@submit.culture
+		%br
+		Residuos peligrosos:
+		=@submit.dangerous_waste
+		%br
+		Economía:
+		=@submit.economy
+		%br
+		Educación:
+		=@submit.education
+		%br
+		Medio ambiente:
+		=@submit.environment
+		%br
+		Salud:
+		=@submit.health
+		%br
+		Immigración:
+		=@submit.immigration
+		%br
+		Protección social:
+		=@submit.social_protection
+		%br
+		Desempleo:
+		=@submit.unemployment
+		%br
+		</td>
+		<td>
+		%h2= 'Tu comunidad:'
+		=@submit.region_from.name
+		%br
+		Mis preferencias:
+		Cultura:
+		=(@submit.region_from.preculture / 10).to_i
+		%br
+		Residuos peligrosos:
+		=(@submit.region_from.predangerous_waste / 10).to_i
+		%br
+		Economía:
+		=(@submit.region_from.preeconomy / 10).to_i
+		%br
+		Educación:
+		=(@submit.region_from.preeducation / 10).to_i
+		%br
+		Medio ambiente:
+		=(@submit.region_from.preenvironment / 10).to_i
+		%br
+		Salud:
+		=(@submit.region_from.prehealth / 10).to_i
+		%br
+		Immigración:
+		=(@submit.region_from.preimmigration / 10).to_i
+		%br
+		Protección social:
+		=(@submit.region_from.presocial_protection / 10).to_i
+		%br
+		Desempleo:
+		=(@submit.region_from.preunemployment / 10).to_i
+		%br
+		</td>
+		</tr>
+		<tr>
+		<td></td>
+		<td>
+		%h2= 'Valores'
+		Cultura:
+		=(@submit.region_from.culture.value / @submit.region_from.population * 100000).to_i
+		%br
+		Residuos peligrosos:
+		=@submit.region_from.dangerous_waste.value.to_int
+		%br
+		Economía:
+		=(@submit.region_from.economy.value / @submit.region_from.population * 1000000).to_int
+		%br
+		Educación:
+		=@submit.region_from.education.value.to_int
+		%br
+		Medio ambiente:
+		=(@submit.region_from.environment.value / @submit.region_from.population* 100000).to_int
+		%br
+		Salud:
+		=@submit.region_from.health.value.to_int
+		%br
+		Immigración:
+		=(@submit.region_from.immigration.value / @submit.region_from.population* 100000).to_int
+		%br
+		Protección social:
+		=(@submit.region_from.social_protection.value / @submit.region_from.population* 100000).to_int
+		%br
+		Desempleo:
+		=@submit.region_from.unemployment.value.to_s + '%'
+		</td>
+		</td>
+		</table>
+	%h1= 'Tendencias migratorias'
+	- @results.each do |k, v|
+		- if v != false
+			=k.name + ': ' + v.name
+			%br
+		- else
+			=k.name + ': ' + 'No hay datos'
+			%br
+	- link = request.url
+	- linkToFacebook = 'http://www.facebook.com/sharer.php?s=100&p[url]=' + URI.escape(link) + '&p[summary]=' + URI.escape('Quieres ver a dónde iré a vivir?') + '&p[title]=' + URI.escape('Aquí os quedáis')
+	- nameRegionResult = @submit.region_result.name
+	%a(href=linkToFacebook title="Compartir en facebook" class="popup")
+		%img(src="http://static.ak.fbcdn.net/rsrc.php/v1/zK/r/NGGPJRdOdhs.png" alt="Facebook")
+	- dataText = 'Me debería ir a vivir a... ' + nameRegionResult
+	%a(href="http://twitter.com/share" class="twitter-share-button" data-text=dataText data-count="none" data-via="aquiosquedais" data-lang="es")Tweet
+	:plain
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>

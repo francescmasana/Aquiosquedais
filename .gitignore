@@ -1,0 +1,28 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+
+
+#assets
+public/system/uploads
+public/uploads
+
+#we use sass, ignoring css
+#public/stylesheets/
+
+#using sprockets
+#public/javascripts
+
+Thumbs.db
+thumbs.db
+
+*.bak
+*.tmp
+*~
+*.swp
+*ORIG*
+*REMOTE*
+*LOCAL*
+*.orig
+

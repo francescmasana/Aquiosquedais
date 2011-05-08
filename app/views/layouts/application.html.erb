@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Aquí os Quedáis</title>
+  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag 'jquery-ui-1.8.12.custom' %>  
+  <%= javascript_include_tag 'jquery-1.5.1.min' %>
+  <%= javascript_include_tag 'jquery-ui-1.8.12.custom.min' %>
+  <%= yield :dyn_js %>
+  <%= csrf_meta_tag %>
+
+    <style type="text/css">
+    @import url('http://www.albertbalaguero.com/aquiosquedais/estils/font_face.css');
+    @import url('http://www.albertbalaguero.com/aquiosquedais/estils/estils_web.css');
+
+    </style>
+    <style type="text/css">
+    			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+    			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+    			ul#icons {margin: 0; padding: 0;}
+    			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+    			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+  	</style>
+</head>
+<body>
+
+<%= yield %>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1433164-47']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

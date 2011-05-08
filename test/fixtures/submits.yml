@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  region_from_id: 1
+  region_result_id: 1
+  ip: MyString
+  culture: 1
+  dangerous_waste: 1
+  economy: 1
+  education: 1
+  environment: 1
+  health: 1
+  immigration: 1
+  social_protection: 1
+  unemployment: 1
+
+two:
+  region_from_id: 1
+  region_result_id: 1
+  ip: MyString
+  culture: 1
+  dangerous_waste: 1
+  economy: 1
+  education: 1
+  environment: 1
+  health: 1
+  immigration: 1
+  social_protection: 1
+  unemployment: 1

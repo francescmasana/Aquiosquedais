@@ -1,0 +1,277 @@
+﻿-content_for :dyn_js do
+	:plain
+		<script type="text/javascript">
+			$(document).ready(function() {
+			 
+			});
+		</script>
+		
+-if @submit.present?
+	-if @submit.region_from_id != @submit.region_result_id
+		-content_for :dyn_js do
+			:plain
+				<script type="text/javascript">
+					$(document).ready(function() {
+						jQuery('a.popup').live('click', function(){
+						    newwindow=window.open($(this).attr('href'),'','height=350,width=750');
+						    if (window.focus) {newwindow.focus()}
+						    return false;
+					    });
+					    $('.slider').slider({
+						value: 5,
+						min: 0,
+						max: 10,
+						step: 1,
+						range: 'min'
+						});
+						
+					});
+					
+				</script>
+		#contenidor       
+			#head
+				<img src="http://www.albertbalaguero.com/aquiosquedais/imatges/aquiosquedais_head.jpg" border="0" />
+			#menu    
+				<a href="/" target="_self">Inicio</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="project" target="_self">El proyecto</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="team" target="_self">Equipo</a></div>
+				#destacat_negre
+					.destacat_text_petit           
+						Quizá prefieras vivir en...
+					.destacat_text_gran           
+						=@submit.region_result.name
+				#resultat_col1
+					.titol_resultat_verd
+						Tus preferencias
+					.text_general
+						%br
+						Cultura:
+						#sliderpref0{:class => 'slider'}
+						%br
+						Residuos peligrosos:
+						#sliderpref1{:class => 'slider'}
+						%br
+						Economía:
+						#sliderpref2{:class => 'slider'}
+						%br
+						Educación:
+						#sliderpref3{:class => 'slider'}
+						%br
+						Medio ambiente:
+						#sliderpref4{:class => 'slider'}
+						%br
+						Salud:
+						#sliderpref5{:class => 'slider'}
+						%br
+						Immigración:
+						#sliderpref6{:class => 'slider'}
+						%br
+						Protección social:
+						#sliderpref7{:class => 'slider'}
+						%br
+						Desempleo:
+						#sliderpref8{:class => 'slider'}
+						%br
+				#resultat_col2
+					.titol_resultat_verd
+						=@submit.region_from.name
+					.text_general
+						%br
+						Cultura:
+						#sliderorig0{:class => 'slider'}
+						%br
+						Residuos peligrosos:
+						#sliderorig1{:class => 'slider'}
+						%br
+						Economía:
+						#sliderorig2{:class => 'slider'}
+						%br
+						Educación:
+						#sliderorig3{:class => 'slider'}
+						%br
+						Medio ambiente:
+						#sliderorig4{:class => 'slider'}
+						%br
+						Salud:
+						#sliderorig5{:class => 'slider'}
+						%br
+						Immigración:
+						#sliderorig6{:class => 'slider'}
+						%br
+						Protección social:
+						#sliderorig7{:class => 'slider'}
+						%br
+						Desempleo:
+						#sliderorig8{:class => 'slider'}
+						%br
+				#resultat_col3
+					.titol_resultat_verd
+						=@submit.region_result.name
+					.text_general
+						%br
+						Cultura:
+						#sliderdest0{:class => 'slider'}
+						%br
+						Residuos peligrosos:
+						#sliderdest1{:class => 'slider'}
+						%br
+						Economía:
+						#sliderdest2{:class => 'slider'}
+						%br
+						Educación:
+						#sliderdest3{:class => 'slider'}
+						%br
+						Medio ambiente:
+						#sliderdest4{:class => 'slider'}
+						%br
+						Salud:
+						#sliderdest5{:class => 'slider'}
+						%br
+						Immigración:
+						#sliderdest6{:class => 'slider'}
+						%br
+						Protección social:
+						#sliderdest7{:class => 'slider'}
+						%br
+						Desempleo:
+						#sliderdest8{:class => 'slider'}
+						%br
+				#doble_contingut
+					#resultat_col4
+						- link = request.url
+						- linkToFacebook = 'http://www.facebook.com/sharer.php?s=100&p[url]=' + URI.escape(link) + '&p[summary]=' + URI.escape('Quieres ver a dónde iré a vivir?') + '&p[title]=' + URI.escape('Aquí os quedáis')
+						- nameRegionResult = @submit.region_result.name
+						%a(href=linkToFacebook title="Compartir en facebook" class="popup")
+							%img(src="http://static.ak.fbcdn.net/rsrc.php/v1/zK/r/NGGPJRdOdhs.png" alt="Facebook")
+						- dataText = 'Me debería ir a vivir a... ' + nameRegionResult
+						%a(href="http://twitter.com/share" class="twitter-share-button" data-text=dataText data-count="none" data-via="aquiosquedais" data-lang="es")Tweet
+						:plain
+							<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					#resultat_tendencies
+						.titol_resultat_verd='TENDENCIAS'
+						.titol_resultat_negre='MIGRATORIAS'
+						%br
+						%br
+						- @results.each do |k, v|
+							- if v != false
+								.c_origen=k.name + ' > '
+								.c_destino=v.name
+							- else
+								.c_origen=k.name + ' > '
+								.c_destino='No hay datos'
+				#resultat_col5
+					.titol_resultat_verd='Tu comunidad'
+					.titol_resultat_negre='EN CIFRAS'
+					%br
+					%br
+					.tema
+						.titol_tema='Cultura'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_from.culture.value / @submit.region_from.population * 100000).to_i
+					.tema
+						.titol_tema='Residuos peligrosos'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_from.dangerous_waste.value.to_int
+					.tema
+						.titol_tema='Economía'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_from.economy.value / @submit.region_from.population * 1000000).to_int
+					.tema
+						.titol_tema='Educación'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_from.education.value.to_int
+					.tema
+						.titol_tema='Medio ambiente'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_from.environment.value / @submit.region_from.population* 100000).to_int
+					.tema
+						.titol_tema='Salud'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_from.health.value.to_int
+					.tema
+						.titol_tema='Immigración'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_from.immigration.value / @submit.region_from.population* 100000).to_int
+					.tema
+						.titol_tema='Protección social'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_from.social_protection.value / @submit.region_from.population* 100000).to_int
+					.tema
+						.titol_tema='Desempleo'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_from.unemployment.value.to_s + '%'
+				#resultat_col6
+					.titol_resultat_verd='Tu destino'
+					.titol_resultat_negre='EN CIFRAS'
+					%br
+					%br
+					.tema
+						.titol_tema='Cultura'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_result.culture.value / @submit.region_result.population * 100000).to_i
+					.tema
+						.titol_tema='Residuos peligrosos'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_result.dangerous_waste.value.to_int
+					.tema
+						.titol_tema='Economía'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_result.economy.value / @submit.region_result.population * 1000000).to_int
+					.tema
+						.titol_tema='Educación'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_result.education.value.to_int
+					.tema
+						.titol_tema='Medio ambiente'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_result.environment.value / @submit.region_result.population* 100000).to_int
+					.tema
+						.titol_tema='Salud'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_result.health.value.to_int
+					.tema
+						.titol_tema='Immigración'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_result.immigration.value / @submit.region_result.population* 100000).to_int
+					.tema
+						.titol_tema='Protección social'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=(@submit.region_result.social_protection.value / @submit.region_result.population* 100000).to_int
+					.tema
+						.titol_tema='Desempleo'
+						.unitat_resultat='Cines, museos y otros por 1000 hab.'
+						.xifra_resultat=@submit.region_result.unemployment.value.to_s + '%'
+	:javascript
+		jQuery(function(){
+		    $('#sliderpref0').slider("value", #{@submit.culture});
+		    $('#sliderpref1').slider("value", #{@submit.dangerous_waste});
+		    $('#sliderpref2').slider("value", #{@submit.economy});
+		    $('#sliderpref3').slider("value", #{@submit.education});
+		    $('#sliderpref4').slider("value", #{@submit.environment});
+		    $('#sliderpref5').slider("value", #{@submit.health});
+		    $('#sliderpref6').slider("value", #{@submit.immigration});
+		    $('#sliderpref7').slider("value", #{@submit.social_protection});
+		    $('#sliderpref8').slider("value", #{@submit.unemployment});
+		    
+		    $('#sliderorig0').slider("value", #{(@submit.region_from.preculture / 10).to_i});
+		    $('#sliderorig1').slider("value", #{(@submit.region_from.predangerous_waste / 10).to_i});
+		    $('#sliderorig2').slider("value", #{(@submit.region_from.preeconomy / 10).to_i});
+		    $('#sliderorig3').slider("value", #{(@submit.region_from.preeducation / 10).to_i});
+		    $('#sliderorig4').slider("value", #{(@submit.region_from.preenvironment / 10).to_i});
+		    $('#sliderorig5').slider("value", #{(@submit.region_from.prehealth / 10).to_i});
+		    $('#sliderorig6').slider("value", #{(@submit.region_from.preimmigration / 10).to_i});
+		    $('#sliderorig7').slider("value", #{(@submit.region_from.presocial_protection / 10).to_i});
+		    $('#sliderorig8').slider("value", #{(@submit.region_from.preunemployment / 10).to_i});
+		  
+		    
+		    $('#sliderdest0').slider("value", #{(@submit.region_result.preculture / 10).to_i});
+		    $('#sliderdest1').slider("value", #{(@submit.region_result.predangerous_waste / 10).to_i});
+		    $('#sliderdest2').slider("value", #{(@submit.region_result.preeconomy / 10).to_i});
+		    $('#sliderdest3').slider("value", #{(@submit.region_result.preeducation / 10).to_i});
+		    $('#sliderdest4').slider("value", #{(@submit.region_result.preenvironment / 10).to_i});
+		    $('#sliderdest5').slider("value", #{(@submit.region_result.prehealth / 10).to_i});
+		    $('#sliderdest6').slider("value", #{(@submit.region_result.preimmigration / 10).to_i});
+		    $('#sliderdest7').slider("value", #{(@submit.region_result.presocial_protection / 10).to_i});
+		    $('#sliderdest8').slider("value", #{(@submit.region_result.preunemployment / 10).to_i});
+		    
+		    
+		    
+		  });
