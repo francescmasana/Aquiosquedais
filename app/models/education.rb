@@ -5,7 +5,7 @@ class Education < ActiveRecord::Base
     maxim=a.map{|u|u.value/u.region.population}.max
     minim=a.map{|u|u.value/u.region.population}.min
     a.each do |b|
-      b.region.preeducation=((b.value/b.region.population)-minim)/(maxim-minim)*100
+      b.region.preeducation=100 - ((b.value/b.region.population)-minim)/(maxim-minim)*100
       b.region.save
     end
     
